@@ -6,6 +6,17 @@
 
 ---
 
+<div align="center">
+  <img src="https://img.shields.io/badge/Plugin%20Type-Tool-blue" alt="Plugin Type: Tool">
+  <img src="https://img.shields.io/github/v/release/perzeuss/dify-plugin-usage-limit-tool?label=Version&color=DD7200" alt="Latest Release Version">
+  <br>
+  <img src="https://img.shields.io/badge/Compatible%20With-Dify%201.0--beta-purple" alt="Compatible With: Dify 1.0-beta">
+  <a href="https://codecov.io/gh/perzeuss/dify-plugin-usage-limit-tool">
+    <img src="https://codecov.io/gh/perzeuss/dify-plugin-usage-limit-tool/main/graph/badge.svg" alt="Coverage Status">
+  </a>
+  <img src="https://img.shields.io/github/license/perzeuss/dify-plugin-usage-limit-tool?label=License&color=darkgreen" alt="License">
+</div>
+
 ### Description
 
 The Usage Limit Tool is designed to manage and monitor user interactions within Dify chatflows by applying specified message limits. This tool helps prevent abuse, avoid unwanted costs, and implement user-specific usage plans by defining message limits through various strategies. By utilizing different configurations, the tool allows you to enforce restrictions flexibly and efficiently.
