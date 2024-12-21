@@ -1,0 +1,173 @@
+identity:
+  name: usage-limit
+  author: perzeuss
+  label:
+    en_US: Usage Limit
+    zh_Hans: 使用限制
+    pt_BR: Limite de Uso
+description:
+  human:
+    en_US: Define a chatflow message limit for users based on specified strategies.
+    zh_Hans: 基于指定策略为用户定义聊流消息限制。
+    pt_BR: Defina um limite de mensagens de fluxo de chat para usuários com base em estratégias especificadas.
+  llm: Define a chatflow message limit for users.
+parameters:
+  - name: user_id
+    type: string
+    required: true
+    label:
+      en_US: User ID
+      zh_Hans: 用户ID
+      pt_BR: ID do Usuário
+    human_description:
+      en_US: The unique identifier of the user.
+      zh_Hans: 用户的唯一标识符。
+      pt_BR: O identificador único do usuário.
+    llm_description: The unique identifier of the user.
+    form: llm
+  - name: tracking_method
+    type: select
+    required: true
+    label:
+      en_US: Tracking Method
+      zh_Hans: 跟踪方式
+      pt_BR: Método de Rastreamento
+    human_description:
+      en_US: The method to use for tracking usage ("user", "app", "conversation").
+      zh_Hans: 用于跟踪使用的方式 ("user", "app", "conversation")。
+      pt_BR: O método a ser utilizado para rastrear o uso ("user", "app", "conversation").
+    llm_description: The method to use for tracking usage. Options are "user", "app", "conversation".
+    form: form
+    default: user
+    options: 
+      - value: workspace-user
+        type: string
+        label:
+          en_US: Workspace User (Limit messages for users across all Dify apps in workspace)
+          zh_Hans: 工作区用户（限制工作区中所有Dify应用下的用户消息数量）
+          pt_BR: Usuário do Workspace (Limitar mensagens para usuários em todos os aplicativos Dify no workspace)
+      - value: app-user
+        type: string
+        label:
+          en_US: App User (Limit messages for users of this Dify app)
+          zh_Hans: 应用程序用户（限制每个Dify应用程序下用户的消息数量）
+          pt_BR: Usuário do Aplicativo (Limitar mensagens para usuários de cada aplicativo Dify)
+      - value: conversation
+        type: string
+        label:
+          en_US: Conversation (Limit messages per conversation)
+          zh_Hans: 对话（限制每个对话的消息数量）
+          pt_BR: Conversa (Limitar mensagens por conversa)
+      - value: app
+        type: string
+        label:
+          en_US: App (Limit messages per app for all users)
+          zh_Hans: 应用程序（限制每个应用程序下的所有用户的消息数量）
+          pt_BR: Aplicativo (Limitar mensagens por aplicativo para todos os usuários)
+  - name: limit
+    type: number
+    required: true
+    default: 100
+    label:
+      en_US: Limit
+      zh_Hans: 限制
+      pt_BR: Limite
+    human_description:
+      en_US: The maximum number of messages the user can send before being limited.
+      zh_Hans: 在限制之前用户可以发送的最大消息次数。
+      pt_BR: O número máximo de mensagens que o usuário pode enviar antes de ser limitado.
+    llm_description: Maximum message count before limit is applied.
+    form: llm
+  - name: duration_seconds
+    type: select
+    required: true
+    label:
+      en_US: Usage Limit Reset Interval
+      zh_Hans: 使用限制重置间隔
+      pt_BR: Intervalo de Redefinição do Limite de Uso
+    human_description:
+      en_US: The interval for resetting usage limit. Select from Hour, Day, Week, Month, Year.
+      zh_Hans: 重置使用限制的间隔。选择小时、天、周、月、年。
+      pt_BR: O intervalo para redefinir o limite de uso. Selecione entre Hora, Dia, Semana, Mês, Ano.
+    llm_description: The interval for usage limit reset (Hour, Day, Week, Month, Year).
+    form: form
+    default: 86400
+    options:
+      - value: 3600
+        type: number
+        label:
+          en_US: Hour (Limit messages per hour)
+          zh_Hans: 每小时限制发送消息数
+          pt_BR: Hora (Limite de mensagens por hora)
+      - value: 86400
+        type: number
+        label:
+          en_US: Day (Limit messages per day)
+          zh_Hans: 每天限制发送消息数
+          pt_BR: Dia (Limite de mensagens por dia)
+      - value: 604800
+        type: number
+        label:
+          en_US: Week (Limit messages per week)
+          zh_Hans: 每周限制发送消息数
+          pt_BR: Semana (Limite de mensagens por semana)
+      - value: 2592000
+        type: number
+        label:
+          en_US: Month (Limit messages per month)
+          zh_Hans: 每月限制发送消息数
+          pt_BR: Mês (Limite de mensagens por mês)
+      - value: 31536000
+        type: number
+        label:
+          en_US: Year (Limit messages per year)
+          zh_Hans: 每年限制发送消息数
+          pt_BR: Ano (Limite de mensagens por ano)
+  - name: limit_strategy
+    type: select
+    required: true
+    label:
+      en_US: Limit Strategy
+      zh_Hans: 限制策略
+      pt_BR: Estratégia de Limite
+    human_description:
+      en_US: The windowing strategy to use. Can be "fixed" or "sliding".
+      zh_Hans: 要使用的窗口策略。可以是 "fixed" 或 "sliding"。
+      pt_BR: A estratégia de janela a ser utilizada. Pode ser "fixed" ou "sliding".
+    llm_description: The windowing strategy to use. Options are "fixed", "sliding". Default is "sliding".
+    form: form
+    default: sliding
+    options:
+      - value: fixed
+        type: string
+        label:
+          en_US: "Fixed Window: Uses less memory. Limit resets after a fixed time, so users might need to wait longer to send the next message."
+          zh_Hans: "固定窗口：使用较少内存。限制在固定时间后重置，因此用户可能需要等待更长时间才能发送下一条消息。"
+          pt_BR: "Janela Fixa: Usa menos memória. O limite é redefinido após um tempo fixo, então os usuários podem precisar esperar mais para enviar a próxima mensagem."
+      - value: sliding
+        type: string
+        label:
+          en_US: "Sliding Window: Better user experience but consumes more memory. Limit resets partially as users wait from their first message in the window."
+          zh_Hans: "滑动窗口：更好的用户体验但会消耗更多内存。限制会在用户从窗口中的第一条消息开始等待时部分重置。"
+          pt_BR: "Janela Deslizante: Melhor experiência do usuário, mas consome mais memória. O limite é redefinido parcialmente conforme os usuários aguardam a partir da primeira mensagem na janela."
+output_schema:
+  type: object
+  properties:
+    identifier:
+      type: string
+      description: The identifier used for tracking limits.
+    limit:
+      type: number
+      description: The max usage limit.
+    current_usage:
+      type: number
+      description: The current count of usage.
+    remaining_usage:
+      type: number
+      description: The remaining usage count allowed.
+    reset_seconds:
+      type: number
+      description: The remaining seconds until the user can send messages again. Please note that in sliding window strategy, it's not a real "reset", but the user will be able to send messages again.
+extra:
+  python:
+    source: tools/usage_limit.py

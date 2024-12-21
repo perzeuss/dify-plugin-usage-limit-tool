@@ -1,0 +1,72 @@
+identity:
+  name: reset-usage
+  author: perzeuss
+  label:
+    en_US: Reset Usage
+    zh_Hans: 重置使用
+    pt_BR: Redefinir Uso
+description:
+  human:
+    en_US: Reset usage for users based on specified strategies.
+    zh_Hans: 根据指定策略重置用户的使用。
+    pt_BR: Redefinir uso para usuários com base em estratégias especificadas.
+  llm: Reset the usage for users based on the provided limit strategy.
+parameters:
+  - name: user_id
+    type: string
+    required: true
+    label:
+      en_US: User ID
+      zh_Hans: 用户ID
+      pt_BR: ID do Usuário
+    human_description:
+      en_US: The unique identifier of the user.
+      zh_Hans: 用户的唯一标识符。
+      pt_BR: O identificador único do usuário.
+    llm_description: The unique identifier of the user.
+    form: llm
+  - name: tracking_method
+    type: select
+    required: true
+    label:
+      en_US: Tracking Method
+      zh_Hans: 限制策略
+      pt_BR: Estratégia de Limite
+    human_description:
+      en_US: The strategy to use for limiting usage ("user", "app", "conversation").
+      zh_Hans: 用于限制使用的策略 (“user” “app” “conversation”)。
+      pt_BR: A estratégia a ser utilizada para limitar o uso ("user", "app", "conversation").
+    llm_description: The strategy for limiting usage. Options are "user, app, conversation".
+    form: form
+    default: user
+    options: 
+      - value: user
+        type: string
+        label:
+          en_US: User (Limit messages per user)
+          zh_Hans: 用户（限每个用户的消息数量）
+          pt_BR: Usuário (Limitar mensagens por usuário)
+      - value: app
+        type: string
+        label:
+          en_US: App (Limit messages per app for all users)
+          zh_Hans: 应用程序（限每个应用程序下的所有用户的消息数量）
+          pt_BR: Aplicativo (Limitar mensagens por aplicativo para todos os usuários)
+      - value: conversation
+        type: string
+        label:
+          en_US: Conversation (Limit messages per conversation for each user)
+          zh_Hans: 对话（限每个用户的对话消息数量）
+          pt_BR: Conversa (Limitar mensagens por conversa para cada usuário)
+output_schema:
+  type: object
+  properties:
+    identifier:
+      type: string
+      description: The identifier used for tracking limits.
+    status:
+      type: string
+      description: The status of the reset operation.
+extra:
+  python:
+    source: tools/reset_usage.py

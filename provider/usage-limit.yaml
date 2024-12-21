@@ -1,0 +1,18 @@
+identity:
+  author: perzeuss
+  name: usage-limit
+  label:
+    en_US: usage-limit
+    zh_Hans: usage-limit
+    pt_BR: usage-limit
+  description:
+    en_US: Define a chatflow message limit for users.
+    zh_Hans: Define a chatflow message limit for users.
+    pt_BR: Define a chatflow message limit for users.
+  icon: icon.svg
+tools:
+  - tools/usage-limit.yaml
+  - tools/reset-usage.yaml
+extra:
+  python:
+    source: provider/usage-limit.py
